@@ -20,8 +20,11 @@ package
 		private var nWall:FlxTileblock;
 		private var sWall:FlxTileblock;
 		
-		//the skittish spawner
-		private var skitSpawn:Spawner;
+		//a group for some obstacles
+		private var obstacles:FlxGroup;
+		
+		//the skittish spawner group
+		private var skitSpawn:FlxGroup;
 		
 		public function playpen():void
 		{
@@ -30,6 +33,9 @@ package
 		
 		override public function create():void
 		{
+			//set the world bounds
+			FlxG.worldBounds.make(0, 0, 320, 240);
+			
 			//init the walls
 			walls = new FlxGroup();
 			
@@ -53,13 +59,22 @@ package
 			//add the wall group
 			add(walls);
 			
-			//add the skittish
-			skitSpawn = new Spawner();
-			skitSpawn.spawnEnemy();
-			add(skitSpawn);
+			//create a few random obstacles
+			obstacles = new FlxGroup();
+			for (var i:int = 0; i < 5; i++)
+			{
+				var obs:FlxSprite;
+				obs = obstacles.recycle(FlxSprite) as FlxSprite;
+				obs.reset(Math.random() * 288 +16, Math.random() * 208 + 16);
+				obs.makeGraphic(16, 16, 0xffffff00, false, null);
+				obs.immovable = true;
+			}
+			add(obstacles);
 			
-			//show how many skittish are currently alive
-			FlxG.watch(skitSpawn, "length");
+			//make the skitSpawn
+			skitSpawn = new FlxGroup();
+			skitSpawn.maxSize = 5;
+			add(skitSpawn);
 		}
 		
 		override public function update():void
@@ -69,31 +84,42 @@ package
 			//let the 'r' key reset the state
 			if (FlxG.keys.R) FlxG.resetState();
 			
-			//make the wall and skittish collision-aware
-			FlxG.collide(walls, skitSpawn, skitCollide);
+			if (FlxG.keys.justPressed("SPACE") && skitSpawn.countLiving() < skitSpawn.maxSize)
+			{
+				var skit:skittish;
+				skit = skitSpawn.recycle(skittish) as skittish;
+				skit.reset((320 - 8) / 2, (240 - 8) / 2);
+			}
 			
 			//check for collisions between the skittish
-			FlxG.collide(skitSpawn, skitSpawn, skitSelf);
+			FlxG.collide(skitSpawn, skitSpawn, skitCollide);
 			
-			if (FlxG.keys.justPressed("SPACE"))
+			//make the wall and skittish collision-aware
+			FlxG.collide(walls, skitSpawn);
+			FlxG.collide(obstacles, skitSpawn);
+			
+			//show how many skittish are currently alive
+			FlxG.watch(skitSpawn, "length");
+			
+			for (var i:int = 0; i < skitSpawn.length; i++)
 			{
-				//clean up the dead enemies before spawning any new baddies
-				skitSpawn.cleanup();
-				skitSpawn.spawnEnemy();
+				FlxG.watch(skitSpawn.members[i], "health");	
 			}
 		}
 		
-		public function skitCollide(w:FlxTileblock, s:skittish):void
+		public function skitCollide(s1:skittish, s2:skittish):void
 		{
-			s.hitWall();
+			s1.velocity.x = 0;
+			s1.velocity.y = 0;
+			s1.acceleration.x = 0;
+			s1.acceleration.y = 0;
+			s2.velocity.x = 0;
+			s2.velocity.y = 0;
+			s2.acceleration.x = 0;
+			s2.acceleration.y = 0;
+			
 		}
 		
-		public function skitSelf(s1:skittish, s2:skittish):void
-		{
-			//only apply damage if the skittish isn't flickering
-			if(!s1.flickering) s1.damage();
-			if (!s2.flickering) s2.damage();
-		}
 	}
 
 }

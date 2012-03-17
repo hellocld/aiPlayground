@@ -13,27 +13,18 @@ package
 		public function Spawner() 
 		{
 			//just to be on the safe side, set a max size for the spawner
-			maxSize = 30;
+			maxSize = 5;
 		}
 		
-		//call this to spawn any number of enemies; by default it generates only one each time it's called
-		public function spawnEnemy(num:int = 1):void
+		/**
+		 * call this to spawn an enemy; by default it generates one in the center of the screen
+		 */
+		public function spawnEnemy(xPos:int = (320 - 8) / 2, yPos:int = (240 - 8) / 2):void
 		{
-			add(recycle(skittish) as skittish);
+			var tempSkit:skittish = recycle(skittish) as skittish;
+			tempSkit.reset(xPos, yPos);
 		}
 		
-		//call this to clear up the the group, removing all dead enemies
-		public function cleanup():void
-		{
-			//read through all the existing objects in the group
-			for (var i:int = 0; i < length; i++)
-			{
-				if (!members[i].alive)		//check if the current member is dead, and remove it if so
-				{
-					remove(members[i], true);
-				}
-			}
-		}
 	}
 
 }

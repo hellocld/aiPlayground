@@ -38,9 +38,6 @@ package
 			//set the speed
 			speed = 200.0;
 			
-			//initial health (skittish are pretty weak; one or two should do)
-			health = 2;
-			
 			//initial direction and movement
 			setDirection();
 			applyVelocity();
@@ -56,7 +53,7 @@ package
 			health = 3;
 			
 			//make a little square for the skittish, since there's no art yet
-			makeGraphic(16, 16, 0xff00ffbf, false, null);
+			makeGraphic(16, 16, 0xffff0bff, false, null);
 			
 			//set the clock minimums and maxes
 			maxMoveTime = 0.25;
@@ -70,6 +67,9 @@ package
 			
 			//make the skittish active
 			idle = false;
+			
+			//flicker initially, so it can't get hit
+			flicker(0.5);
 		}
 		
 		override public function update():void
@@ -103,7 +103,7 @@ package
 				if(!flickering) applyVelocity();
 				
 				//check the clock; if it's finished, set the idle time and set idle to 'true'
-				if (clock <= 0)
+				if (clock <= 0 || isTouching(FlxObject.WALL))
 				{
 					clock = (Math.random() * (maxIdleTime - minIdleTime)) + minIdleTime;
 					idle = true;
@@ -169,18 +169,12 @@ package
 			idle = true;
 		}
 		
-		//call this when the skittish take a hit
-		public function damage():void
+		override public function revive():void
 		{
-			health--;
-			flicker(0.5);
-			
-			if (health <= 0)
-			{
-				flicker(1);
-				kill();
-			}
+			super.revive();
+			health = 3;
 		}
+		
 	}
 
 }
