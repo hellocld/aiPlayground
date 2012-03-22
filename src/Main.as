@@ -7,13 +7,14 @@ package
 	 * @author cld
 	 */
 	
-	 [SWF(width = "640", height = "480", backgroundColor = "#000000")]
+	[SWF(width = "640", height = "480", backgroundColor = "#000000")]
+	[Frame(factoryClass = "Preloader")]
 	
 	public class Main extends FlxGame 
 	{
 		function Main():void
 		{
-			super(320, 240, playpen, 2, 60, 60, true);
+			super(320, 240, MainMenu, 2, 60, 60, true);
 			forceDebugger = true;		
 		}
 	}
