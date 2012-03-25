@@ -9,6 +9,7 @@ package
 	{
 		private var topdownButton:FlxButton;
 		private var platformButton:FlxButton;
+		private var text:FlxText;
 		
 		public function MainMenu():void 
 		{
@@ -22,6 +23,9 @@ package
 			topdownButton = new FlxButton(20, 180, "Top Down", startTopDown);
 			platformButton = new FlxButton(20, 200, "Platformer", startPlatformer);
 			
+			text = new FlxText(20, 20, 280, "aiPlayground\n\nA bunch of stuff where I make things do things.\nAnd stuff.");
+			
+			add(text);
 			add(topdownButton);
 			add(platformButton);
 		}

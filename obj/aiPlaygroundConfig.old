@@ -16,7 +16,7 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'3/21/2012'</value>
+      <value>'3/25/2012'</value>
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
@@ -26,7 +26,7 @@
     </source-path>
   </compiler>
   <file-specs>
-    <path-element>C:\Users\Chris\Dropbox\Game Dev\aiPlayground\src\Preloader.as</path-element>
+    <path-element>C:\Users\Chris\Dropbox\Game Dev\aiPlayground\src\Main.as</path-element>
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
   <default-frame-rate>30</default-frame-rate>

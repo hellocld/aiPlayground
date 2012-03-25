@@ -8,7 +8,7 @@ package
 	 */
 	
 	import org.flixel.*;
-	import flash.utils.getQualifiedClassName;
+	import npc.topdown.*;
 	
 	public class PlaypenTopDown extends FlxState
 	{
