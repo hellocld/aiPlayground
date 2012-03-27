@@ -1,6 +1,7 @@
 package  
 {
 	import org.flixel.*;
+	import npc.platformer.*;
 	
 	/**
 	 * This playpen is for testing out 2D platformer AI types
@@ -9,12 +10,9 @@ package
 	 */
 	public class PlaypenPlatformer extends FlxState
 	{
-		private var walls:FlxGroup;
-		private var Lwall:FlxTileblock;
-		private var Rwall:FlxTileblock;
-		private var Twall:FlxTileblock;
-		private var Bwall:FlxTileblock;
-		private var plat:FlxTileblock;
+		
+		//a little NPC that's afraid of heights
+		private var npc:NPCHeightFright;
 		
 		public function PlaypenPlatformer():void 
 		{
@@ -22,34 +20,34 @@ package
 		}
 		override public function create():void
 		{
-			//huge bit of code here to add four walls and a platform, thus making a room
-			walls = new FlxGroup();
-			Twall = new FlxTileblock(0, 0, 304, 16);
-			Twall.makeGraphic(304, 16, 0xffffffff, false);
-			Rwall = new FlxTileblock(304, 0, 16, 224);
-			Rwall.makeGraphic(16, 224, 0xffffffff, false);
-			Bwall = new FlxTileblock(16, 224, 304, 16);
-			Bwall.makeGraphic(304, 16, 0xffffffff, false);
-			Lwall = new FlxTileblock(0, 16, 16, 224);
-			Lwall.makeGraphic(16, 224, 0xffffffff, false);
+			//set global gravity in the Registry
+			Registry.gravity = 400;
 			
-			plat = new FlxTileblock(128, 112, 64, 16);
-			plat.makeGraphic(64, 16, 0xff777777, false);
+			//huge bit of code here to create the room from the tilemap in the registry
+			Registry.tilemap = new FlxTilemap();
+			Registry.tilemap.loadMap(new Registry.platformerCSV, Registry.tilesPNG, 16, 16, 0, 0, 1, 1);
 			
-			walls.add(Twall);
-			walls.add(Rwall);
-			walls.add(Bwall);
-			walls.add(Lwall);
-			walls.add(plat);
+			add(Registry.tilemap);
 			
-			add(walls);
+			//do a little setup on our NPC and add it
+			Registry.npc = new NPCHeightFright();
+			Registry.npc.x = 152;
+			Registry.npc.y = 32;
+			add(Registry.npc);
 		}
 		
 		override public function update():void
 		{
 			super.update();
-			
+			//quit and reset keys
 			if (FlxG.keys.Q) FlxG.switchState(new MainMenu);
+			if (FlxG.keys.R) FlxG.resetState();
+			
+			//set collision stuff so the NPC has some boundaries
+			FlxG.collide(Registry.npc, Registry.tilemap);
+			
+			//some variable watching goodness
+			
 		}
 		
 	}
