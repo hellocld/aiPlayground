@@ -9,12 +9,16 @@ package npc.platformer
 	
 	public class NPCHeightFright extends NPCgeneric
 	{
+		//this point checks below the front of the character to see if there's a floor to step on or not
 		public var cornerCheck:FlxPoint;
+		//this point checks to make sure there's nothing right in front of it
+		public var frontCheck:FlxPoint;
 		
 		public function NPCHeightFright():void 
 		{
 			super();
 			cornerCheck = new FlxPoint(x, y + height + 6);
+			frontCheck = new FlxPoint(x, y + (height / 2));
 		}
 		
 		override public function update():void
@@ -22,13 +26,16 @@ package npc.platformer
 			super.update();
 			
 			
-			//update the cornerCheck point accordingly
+			//update the cornerCheck and frontCheck points accordingly
 			cornerCheck.y = y + height + 6;
+			frontCheck.y = y + (height / 2);
 			if (facing == LEFT)
 			{
 				cornerCheck.x = x - 1;
+				frontCheck.x = x - 1;
 			} else {
 				cornerCheck.x = x + width + 1;
+				frontCheck.x = x + width + 1;
 			}
 			
 			//things to check while on the floor
@@ -49,9 +56,14 @@ package npc.platformer
 					acceleration.x = 0;
 					FlxG.log("FOUND THE EDGE!!!");
 				}
+				//do the same basic check for walls in front of the npc
+				if (Registry.tilemap.overlapsPoint(frontCheck))
+				{
+					facing = (facing == LEFT) ? RIGHT : LEFT;
+					acceleration.x = 0;
+					FlxG.log("FOUND A WALL");
+				}
 			}
-			FlxG.watch(cornerCheck, "x");
-			FlxG.watch(cornerCheck, "y");
 		}
 		
 	}

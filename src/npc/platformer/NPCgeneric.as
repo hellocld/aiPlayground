@@ -9,7 +9,7 @@ package npc.platformer
 	
 	public class NPCgeneric extends FlxSprite
 	{
-		public var speed:Number;
+		protected var speed:Number;
 		
 		public function NPCgeneric():void 
 		{
@@ -23,6 +23,9 @@ package npc.platformer
 			drag.x = speed * 8;
 			
 			maxVelocity.x = speed;
+			
+			//set the facing direction
+			facing = LEFT;
 			
 			//tangerine tango square!
 			makeGraphic(16, 32, 0xffe2492f, false);

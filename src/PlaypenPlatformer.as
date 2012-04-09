@@ -12,7 +12,7 @@ package
 	{
 		
 		//a little NPC that's afraid of heights
-		private var npc:NPCHeightFright;
+		private var npc:NPCWalker;
 		
 		public function PlaypenPlatformer():void 
 		{
@@ -30,7 +30,7 @@ package
 			add(Registry.tilemap);
 			
 			//do a little setup on our NPC and add it
-			Registry.npc = new NPCHeightFright();
+			Registry.npc = new NPCWalker();
 			Registry.npc.x = 152;
 			Registry.npc.y = 32;
 			add(Registry.npc);
@@ -46,7 +46,6 @@ package
 			//set collision stuff so the NPC has some boundaries
 			FlxG.collide(Registry.npc, Registry.tilemap);
 			
-			//some variable watching goodness
 			
 		}
 		
