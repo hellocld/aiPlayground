@@ -12,7 +12,7 @@ package
 	{
 		
 		//a little NPC that's afraid of heights
-		private var npc:NPCHopper;
+		private var npc:NPCHeightFright;
 		
 		public function PlaypenPlatformer():void 
 		{
@@ -30,7 +30,7 @@ package
 			add(Registry.tilemap);
 			
 			//do a little setup on our NPC and add it
-			Registry.npc = new NPCHopper();
+			Registry.npc = new NPCHeightFright();
 			Registry.npc.x = 152;
 			Registry.npc.y = 32;
 			add(Registry.npc);

@@ -7,7 +7,7 @@ package npc.platformer
 	
 	import org.flixel.*;
 	
-	public class NPCHeightFright extends NPCgeneric
+	public class NPCHeightFright extends NPCWalker
 	{
 		//this point checks below the front of the character to see if there's a floor to step on or not
 		public var cornerCheck:FlxPoint;
@@ -18,52 +18,28 @@ package npc.platformer
 		{
 			super();
 			cornerCheck = new FlxPoint(x, y + height + 6);
-			frontCheck = new FlxPoint(x, y + (height / 2));
 		}
 		
 		override public function update():void
 		{
 			super.update();
 			
+			//check to see if that little cornerCheck point is colliding with the floor or not
+			//if not, turn around because THERE IS NO FLOOR ONLY ZUUL
+			if (isTouching(FLOOR) && !Registry.tilemap.overlapsPoint(cornerCheck))
+			{
+				facing = (facing == LEFT) ? RIGHT : LEFT;
+				acceleration.x = 0;
+			}
+		}
+		
+		override public function updateBumpers():void
+		{
+			super.updateBumpers();
 			
 			//update the cornerCheck and frontCheck points accordingly
 			cornerCheck.y = y + height + 6;
-			frontCheck.y = y + (height / 2);
-			if (facing == LEFT)
-			{
-				cornerCheck.x = x - 1;
-				frontCheck.x = x - 1;
-			} else {
-				cornerCheck.x = x + width + 1;
-				frontCheck.x = x + width + 1;
-			}
-			
-			//things to check while on the floor
-			if (isTouching(FLOOR))
-			{
-				//apply force so you walk!
-				if (facing == LEFT)
-				{
-					acceleration.x -= drag.x;
-				} else {
-					acceleration.x += drag.x;
-				}
-				//check to see if that little cornerCheck point is colliding with the floor or not
-				//if not, turn around because THERE IS NO FLOOR ONLY ZUUL
-				if (!Registry.tilemap.overlapsPoint(cornerCheck))
-				{
-					facing = (facing == LEFT) ? RIGHT : LEFT;
-					acceleration.x = 0;
-					FlxG.log("FOUND THE EDGE!!!");
-				}
-				//do the same basic check for walls in front of the npc
-				if (Registry.tilemap.overlapsPoint(frontCheck))
-				{
-					facing = (facing == LEFT) ? RIGHT : LEFT;
-					acceleration.x = 0;
-					FlxG.log("FOUND A WALL");
-				}
-			}
+			cornerCheck.x = (facing == LEFT) ? (x - 1):(x + width + 1);
 		}
 		
 	}
