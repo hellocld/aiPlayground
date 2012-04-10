@@ -26,6 +26,8 @@ package
 		//npc for the Platformer playpen
 		public static var npc:NPCgeneric;
 		
+		//the player
+		public static var player:Player;
 		//a FlxGroup for the level, so all the other objects in the registry can "see" it (soon to be replaced by tilemap:FlxTilemap)
 		public static var level:FlxGroup;
 		

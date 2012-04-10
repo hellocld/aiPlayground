@@ -33,9 +33,6 @@ package npc.platformer
 				updateBumpers();
 			}
 			
-			//some FlxG.log stuff
-			FlxG.watch(this.acceleration, "x");
-			FlxG.watch(this, "facing");
 		}
 		
 		//updates the position of the bumpers accordingly

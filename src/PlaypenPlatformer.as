@@ -11,9 +11,6 @@ package
 	public class PlaypenPlatformer extends FlxState
 	{
 		
-		//a little NPC that's afraid of heights
-		private var npc:NPCHeightFright;
-		
 		public function PlaypenPlatformer():void 
 		{
 			
@@ -21,7 +18,7 @@ package
 		override public function create():void
 		{
 			//set global gravity in the Registry
-			Registry.gravity = 400;
+			Registry.gravity = 800;
 			
 			//huge bit of code here to create the room from the tilemap in the registry
 			Registry.tilemap = new FlxTilemap();
@@ -30,10 +27,16 @@ package
 			add(Registry.tilemap);
 			
 			//do a little setup on our NPC and add it
-			Registry.npc = new NPCHeightFright();
+			Registry.npc = new NPCLeaper();
 			Registry.npc.x = 152;
 			Registry.npc.y = 32;
 			add(Registry.npc);
+			
+			//set up our player sprite
+			Registry.player = new Player();
+			Registry.player.x = 32;
+			Registry.player.y = 32;
+			add(Registry.player);
 		}
 		
 		override public function update():void
@@ -45,7 +48,8 @@ package
 			
 			//set collision stuff so the NPC has some boundaries
 			FlxG.collide(Registry.npc, Registry.tilemap);
-			
+			FlxG.collide(Registry.player, Registry.tilemap);
+			FlxG.collide(Registry.player, Registry.npc);
 			
 		}
 		
