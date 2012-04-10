@@ -8,7 +8,7 @@ package
 	 */
 	
 	import org.flixel.*;
-	import npc.topdown.*;
+	import com.hellocld.npc.topdown.*;
 	
 	public class PlaypenTopDown extends FlxState
 	{

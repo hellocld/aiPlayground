@@ -1,7 +1,7 @@
 package  
 {
 	import org.flixel.*;
-	import npc.platformer.*;
+	import com.hellocld.npc.platformer.*;
 	
 	/**
 	 * This playpen is for testing out 2D platformer AI types
@@ -27,7 +27,7 @@ package
 			add(Registry.tilemap);
 			
 			//do a little setup on our NPC and add it
-			Registry.npc = new NPCLeaper();
+			Registry.npc = new NPCRunAway();
 			Registry.npc.x = 152;
 			Registry.npc.y = 32;
 			add(Registry.npc);
