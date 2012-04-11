@@ -31,7 +31,7 @@ package com.hellocld.projectile
 			//if collided with ANYTHING, die
 			if (isTouching(ANY)) kill();
 			//if outside camera view, die
-			if(Registry.cam
+			if (!onScreen) kill();
 		}
 		
 		
