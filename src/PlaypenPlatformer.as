@@ -2,6 +2,7 @@ package
 {
 	import org.flixel.*;
 	import com.hellocld.npc.platformer.*;
+	import com.hellocld.player.*;
 	
 	/**
 	 * This playpen is for testing out 2D platformer AI types
@@ -17,6 +18,12 @@ package
 		}
 		override public function create():void
 		{
+			//configure our camera
+			Registry.camera = new FlxCamera(0, 0, 640, 480, 2);
+			Registry.camera.setBounds(0, 0, 320, 240);
+			Registry.camera.follow(Registry.player);
+			Registry.camera.deadzone = new FlxRect(64, 64, 202, 112);
+			
 			//set global gravity in the Registry
 			Registry.gravity = 800;
 			

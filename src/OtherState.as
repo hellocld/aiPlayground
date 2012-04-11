@@ -1,7 +1,8 @@
 package  
 {
 	import org.flixel.*;
-	
+	import com.hellocld.player.*;
+	import com.hellocld.projectile.*;
 	/**
 	 * Testing bed for other shenanigans
 	 * @author cld

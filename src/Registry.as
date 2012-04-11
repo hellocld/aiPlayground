@@ -4,8 +4,10 @@ package
 	 * Any major variables that need to be accessed by multiple objects go in here
 	 * @author cld
 	 */
-	import npc.platformer.*;
-	import npc.topdown.*;
+	import com.hellocld.npc.platformer.*;
+	import com.hellocld.npc.topdown.*;
+	import com.hellocld.projectile.*;
+	import com.hellocld.player.*;
 	import org.flixel.*;
 	
 	
@@ -28,8 +30,13 @@ package
 		
 		//the player
 		public static var player:Player;
+		
 		//a FlxGroup for the level, so all the other objects in the registry can "see" it (soon to be replaced by tilemap:FlxTilemap)
 		public static var level:FlxGroup;
+		
+		
+		//le camera
+		public static var camera:FlxCamera;
 		
 		public function Registry() 
 		{
