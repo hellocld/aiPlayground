@@ -1,6 +1,7 @@
 package com.hellocld.projectile 
 {
 	import org.flixel.FlxGroup;
+	import org.flixel.FlxG;
 	
 	/**
 	 * A basic bullet manager. Every entity that can fire bullets gets one
@@ -13,11 +14,19 @@ package com.hellocld.projectile
 		{
 			//max number of bullets
 			maxSize = 10;
+			for (var i:int = 0; i < maxSize; i++)
+			{
+				add(new Bullet);
+			}
 		}
 		
-		public function addBullet(b:Bullet)
+		public function fire():void
 		{
-			add(b);
+			if (getFirstAvailable()) 
+			{
+				FlxG.log("FIRE");
+				Bullet(getFirstAvailable()).fire(Registry.player.x, Registry.player.y, 400);
+			}
 		}
 		
 	}

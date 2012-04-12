@@ -38,6 +38,9 @@ package
 		//le camera
 		public static var camera:FlxCamera;
 		
+		//a bullet handler
+		public static var bullets:BulletManager;
+		
 		public function Registry() 
 		{
 		}

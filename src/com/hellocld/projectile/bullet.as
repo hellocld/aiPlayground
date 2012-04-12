@@ -9,29 +9,35 @@ package com.hellocld.projectile
 	 */
 	public class Bullet extends FlxSprite 
 	{
-		protected var vel:FlxPoint;
-		public function Bullet(X:Number = 0, Y:Number = 0, Angle:Number = 0, Speed:Number = 5, Power:Number, SimpleGraphic:Class = null) 
+		public function Bullet() 
 		{
-			super(X, Y, SimpleGraphic);
+			super(0, 0);
+			makeGraphic(1, 1, 0xffffffff);
 			width = 1;
 			height = 1;
-			speed = Speed;
 			
 			//learn some trig and figure out the x & y velocities by using the provided Angle and Speed
 			//trig stuffs here
-			vel.x = 1; //change to the maths
-			vel.y = 0; //   "    "  "    "
+			
+			exists = false;
+		}
+		
+		public function fire(x:int, y:int, speed:Number):void
+		{
+			this.x = x;
+			this.y = y;
+			velocity.x = speed;
+			exists = true;
 		}
 		
 		override public function update():void 
 		{
 			super.update();
-			velocity = vel;
 			
 			//if collided with ANYTHING, die
-			if (isTouching(ANY)) kill();
+			if (isTouching(ANY) && exists) exists = false;
 			//if outside camera view, die
-			if (!onScreen) kill();
+			if (!this.onScreen() && exists) exists = false;
 		}
 		
 		

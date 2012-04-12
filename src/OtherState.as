@@ -28,10 +28,13 @@ package
 			add(Registry.tilemap);
 			
 			//make a little player dude
-			Registry.player = new Player();
+			Registry.player = new ShootingPlayer();
 			Registry.player.x = 64;
 			Registry.player.y = 64;
 			add(Registry.player);
+			
+			Registry.bullets = new BulletManager();
+			add(Registry.bullets);
 		}
 		
 		override public function update():void
@@ -41,6 +44,7 @@ package
 			if (FlxG.keys.justPressed("Q")) FlxG.switchState(new MainMenu);
 			if (FlxG.keys.justPressed("R")) FlxG.resetState();
 			FlxG.collide(Registry.player, Registry.tilemap);
+			FlxG.collide(Registry.bullets, Registry.tilemap);
 		}
 	}
 
