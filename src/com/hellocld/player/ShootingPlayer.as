@@ -8,6 +8,7 @@ package com.hellocld.player
 	 */
 	public class ShootingPlayer extends Player 
 	{
+		
 		public function ShootingPlayer() 
 		{
 			super();
@@ -16,10 +17,9 @@ package com.hellocld.player
 		override public function update():void
 		{
 			super.update();
-			
 			if (FlxG.keys.justPressed("SPACE"))
 			{
-				Registry.bullets.fire();
+				Registry.playerBullets.fire(this.x + width / 2, this.y + height / 2, 400);
 			}
 		}
 		

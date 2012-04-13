@@ -20,12 +20,12 @@ package com.hellocld.projectile
 			}
 		}
 		
-		public function fire():void
+		public function fire(x:Number, y:Number, vel:Number):void
 		{
 			if (getFirstAvailable()) 
 			{
 				FlxG.log("FIRE");
-				Bullet(getFirstAvailable()).fire(Registry.player.x, Registry.player.y, 400);
+				Bullet(getFirstAvailable()).fire(x, y, vel);
 			}
 		}
 		

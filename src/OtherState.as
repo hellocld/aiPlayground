@@ -19,7 +19,7 @@ package
 			FlxG.worldBounds.make(0, 0, 320, 240);
 			
 			//set global gravity in the Registry
-			Registry.gravity = 800;
+			Registry.gravity = 1600;
 			
 			//huge bit of code here to create the room from the tilemap in the registry
 			Registry.tilemap = new FlxTilemap();
@@ -33,8 +33,8 @@ package
 			Registry.player.y = 64;
 			add(Registry.player);
 			
-			Registry.bullets = new BulletManager();
-			add(Registry.bullets);
+			Registry.playerBullets = new BulletManager();
+			add(Registry.playerBullets);
 		}
 		
 		override public function update():void
@@ -44,7 +44,7 @@ package
 			if (FlxG.keys.justPressed("Q")) FlxG.switchState(new MainMenu);
 			if (FlxG.keys.justPressed("R")) FlxG.resetState();
 			FlxG.collide(Registry.player, Registry.tilemap);
-			FlxG.collide(Registry.bullets, Registry.tilemap);
+			FlxG.collide(Registry.playerBullets, Registry.tilemap);
 		}
 	}
 

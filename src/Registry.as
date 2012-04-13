@@ -29,7 +29,7 @@ package
 		public static var npc:NPCgeneric;
 		
 		//the player
-		public static var player:Player;
+		public static var player:ShootingPlayer;
 		
 		//a FlxGroup for the level, so all the other objects in the registry can "see" it (soon to be replaced by tilemap:FlxTilemap)
 		public static var level:FlxGroup;
@@ -39,7 +39,7 @@ package
 		public static var camera:FlxCamera;
 		
 		//a bullet handler
-		public static var bullets:BulletManager;
+		public static var playerBullets:BulletManager;
 		
 		public function Registry() 
 		{

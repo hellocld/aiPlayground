@@ -40,7 +40,7 @@ package
 			add(Registry.npc);
 			
 			//set up our player sprite
-			Registry.player = new Player();
+			Registry.player = new ShootingPlayer();
 			Registry.player.x = 32;
 			Registry.player.y = 32;
 			add(Registry.player);

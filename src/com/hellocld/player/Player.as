@@ -29,6 +29,8 @@ package com.hellocld.player
 			super.update();
 			
 			//player input stuffs
+			
+			acceleration.x = 0;
 			if (FlxG.keys.LEFT)
 			{
 				velocity.x -= speed;
